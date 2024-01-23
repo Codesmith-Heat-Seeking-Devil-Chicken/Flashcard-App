@@ -1,15 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { getDecks } from '../../utils/requests.js';
+import { getDecks } from "../../utils/requests.js";
 
 const CardForm = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [cardFront, setCardFront] = useState('');
-  const [cardBack, setCardBack] = useState('');
+  const [cardFront, setCardFront] = useState("");
+  const [cardBack, setCardBack] = useState("");
 
   const currentDeckID = params.deckId;
 
@@ -25,8 +25,8 @@ const CardForm = () => {
     const newCardString = JSON.stringify(newCard);
 
     await fetch(`http://localhost:3000/deck/${currentDeckID}/card`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: newCardString,
     });
 
@@ -38,29 +38,38 @@ const CardForm = () => {
   };
 
   return (
-    <div className='CardForm'>
-      <div className='formSection'>
-        <form class='formContent' onSubmit={handleSubmit}>
+    <div className="CardForm">
+      <div className="formSection">
+        <h4>Please Add Card Content </h4>
+        <form class="formContent" onSubmit={handleSubmit}>
           <label>
             <input
-              type='text'
-              name='cardFront'
-              placeholder='Front of card'
+              type="text"
+              name="cardFront"
+              placeholder="Front of card"
               onChange={(e) => setCardFront(e.target.value)}
               required
             />
           </label>
           <label>
             <input
-              type='text'
-              name='cardBack'
-              placeholder='Back of card'
+              type="text"
+              name="cardBack"
+              placeholder="Back of card"
               onChange={(e) => setCardBack(e.target.value)}
               required
             />
           </label>
-
-          <button type='submit'>Add Card</button>
+          <div>
+            <button type="submit">Add Card</button>
+            <button
+              onClick={() => {
+                navigate(`/deck/${params.deckId}`);
+              }}
+            >
+              Back to Deck
+            </button>
+          </div>
         </form>
       </div>
     </div>

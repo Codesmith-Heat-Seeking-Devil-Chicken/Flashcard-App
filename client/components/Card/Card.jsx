@@ -1,12 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-import { getDecks } from '../../utils/requests.js';
+import React from "react";
+import { GrPrevious, GrNext } from "react-icons/gr";
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { GiCheckMark } from "react-icons/gi";
+import { FaRegCircle } from "react-icons/fa6";
+import { updateCardStatus } from "../../utils/requests.js";
+import { RxCross1 } from "react-icons/rx";
+import { CardControls } from "./CardControls";
 
 const Card = () => {
   const params = useParams();
+  const dispatch = useDispatch();
 
   // get current card array from the global store
   const currentDeck = useSelector((state) =>
@@ -37,66 +42,74 @@ const Card = () => {
     }
   }
 
-  // We need to set up 2 event handler functions for the addCard and deleteCard buttons
-  // These functions will each contain fetch requests
-  // Add card: GET request to form page
-  // Delete card: DELETE request to backend endpoint
-
-  const handleDelete = async (e) => {
-    const body = JSON.stringify({ deletedCardID: cards[index]._id }); // not sure if _id is the key for the id value (in the card object)
-
-    await fetch(`http://localhost:3000/deck/${currentDeckID}/card`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body,
+  const handleCardStatus = async (selectStatus) => {
+    await updateCardStatus({
+      deckId: currentDeckID,
+      cardId: cards[index]._id,
+      status: selectStatus,
     });
-
-    if (index === cards.length - 1) setIndex(Math.max(index - 1, 0));
-
-    await getDecks();
   };
 
   return (
-    <div className='Card'>
-      <div className='addAndDelete'>
-        <div className='addButton'>
-          <Link className='addCardLink' to={`/deck/${currentDeckID}/addCard`}>
-            Add
+    <div className="Card">
+      <div className="back-butto-container">
+        <div className="backButton">
+          <Link className="addCardLink" to={`/deck/${currentDeckID}`}>
+            Back to Deck
           </Link>
         </div>
-
-        <button disabled={!hasCards} onClick={handleDelete}>
-          Delete
-        </button>
       </div>
-
       {hasCards ? (
-        <div className='flashcard' onClick={(e) => setIsFront(!isFront)}>
-          {/* Front or back cardContent depending on state */}
-          <h2 style={{ color: isFront ? 'black' : 'grey' }}>{cardContent}</h2>
-          {!isFront ? <h3 className='cardBack'>Back of card</h3> : null}
+        <div className="display-card">
+          <div className="prev-button">
+            {(!hasCards || index > 0) && (
+              <button
+                onClick={(e) => {
+                  setIndex(index - 1);
+                  setIsFront(true);
+                }}
+              >
+                <GrPrevious />
+              </button>
+            )}
+          </div>
+
+          <div className="flashcard" onClick={(e) => setIsFront(!isFront)}>
+            {/* Front or back cardContent depending on state */}
+            <div className="content">
+              <h2 style={{ color: isFront ? "black" : "grey" }}>
+                {cardContent}
+              </h2>
+              {!isFront ? <h3 className="cardBack">Back of card</h3> : null}
+            </div>
+            <CardControls
+              cardInfo={{ deckId: currentDeckID, cardId: cards[index]._id }}
+            />
+          </div>
+          <div className="next-button">
+            {(!hasCards || index < cards.length - 1) && (
+              <button
+                onClick={(e) => {
+                  setIndex(index + 1);
+                  setIsFront(true);
+                }}
+              >
+                <GrNext />
+              </button>
+            )}
+          </div>
         </div>
       ) : null}
 
-      <div className='backAndNext'>
-        <button
-          className='backButton'
-          disabled={!hasCards || index === 0}
-          onClick={(e) => {
-            setIndex(index - 1);
-            setIsFront(true);
-          }}
-        >
-          Back
+      <div className="status-buttons">
+        <button onClick={() => handleCardStatus("good")}>
+          <GiCheckMark className="icon-checkmark" />
         </button>
-        <button
-          disabled={!hasCards || index === cards.length - 1}
-          onClick={(e) => {
-            setIndex(index + 1);
-            setIsFront(true);
-          }}
-        >
-          Next
+        <button onClick={() => handleCardStatus("average")}>
+          <FaRegCircle className="icon-circle" />
+        </button>
+        <button onClick={() => handleCardStatus("poor")}>
+          <RxCross1 className="icon-cross" />
         </button>
       </div>
     </div>
