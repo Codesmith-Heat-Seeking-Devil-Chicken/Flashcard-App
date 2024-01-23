@@ -13,9 +13,9 @@ export const decksSlice = createSlice({
       state.decks.push(action.payload);
     },
     deleteDeck: (state, action) => {
-      state.decks.filter((deck, index) => {
-        index !== action.payload;
-      });
+      state.decks = state.decks.filter(
+        (deck, index) => index !== action.payload
+      );
     },
   },
 });
