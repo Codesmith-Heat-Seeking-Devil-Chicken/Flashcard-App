@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const currentDeckSlice = createSlice({
-  name: 'currentDeck',
+  name: "currentDeck",
   initialState: {
-    id: '',
+    id: "",
     cards: [],
   },
   reducers: {
@@ -17,9 +17,9 @@ export const currentDeckSlice = createSlice({
       state.cards.push(action.payload);
     },
     deleteCard: (state, action) => {
-      state.cards.filter((card, index) => {
-        index !== action.payload;
-      });
+      state.cards = state.cards.filter(
+        (card, index) => index !== action.payload
+      );
     },
   },
 });
@@ -27,4 +27,4 @@ export const currentDeckSlice = createSlice({
 export const { selectDeck, loadCards, addCard, deleteCard } =
   currentDeckSlice.actions;
 
-export default currentDeckSlice.reducer;
+export default currentDeckSlice.reducers;
