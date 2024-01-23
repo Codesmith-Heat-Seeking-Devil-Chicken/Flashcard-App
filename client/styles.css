@@ -6,8 +6,10 @@ body {
   margin: 0;
   position: relative;
   background-color: #ebecee;
-  font-family: 'Proxima Nova', 'San Francisco', arial, sans-serif;
+  font-family: "Proxima Nova", "San Francisco", arial, sans-serif;
   color: #1d1d1d;
+  height: 100%;
+  margin: 0;
 }
 
 ul {
@@ -188,7 +190,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: #ebecee; */
+  justify-content: center;
 }
 
 .Card button,
@@ -208,14 +210,100 @@ a {
   color: whitesmoke;
 }
 
-.addAndDelete {
+.back-butto-container {
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   /* justify-content: space-between; */
   margin-bottom: 4rem;
 }
 
-.addButton {
+.display-card {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: center;
+  /* flex-direction: column; */
+}
+
+.display-card .prev-button {
+  padding-right: 40px;
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.display-card .next-button {
+  padding-left: 40px;
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.display-card button {
+  background-color: transparent;
+  padding: 1rem;
+  font-size: 2.5rem;
+  border: none;
+  /* border-radius: 0.5rem; */
+  color: #7d7c7c;
+  cursor: pointer;
+}
+
+.flashcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  height: 100%;
+}
+
+.display-card .flashcard div {
+  flex-grow: 1;
+}
+
+.flashcard .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.inner-card-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  background: none;
+  border-radius: 5px;
+  padding: 3px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.ctrl-btn {
+  color: #fefefe;
+  background-color: transparent;
+  border: none;
+  transition: all 0.3s ease;
+  padding-bottom: 10px;
+  margin: 0;
+  font-size: 5px;
+}
+
+.ctrl-btn:hover {
+  color: none;
+  cursor: pointer;
+}
+
+.flashcard:hover .inner-card-controls {
+  opacity: 1;
+}
+
+.backButton {
   margin-top: 0.64rem;
   margin-right: 40rem;
 }
@@ -273,12 +361,166 @@ a {
   margin-bottom: 2rem;
 }
 
+.formContent div {
+  display: flex;
+  justify-content: space-between;
+}
+
 .formContent button {
-  width: 5rem;
+  width: 7rem;
   height: 2.5rem;
-  border: 0.18rem solid #2dc6f2;
-  border-radius: 0.4rem;
+  border: none;
+  border-radius: 0.6rem;
   background-color: #2dc6f2;
   color: white;
   cursor: pointer;
+}
+
+.formContent button:hover {
+  background-color: #3887be;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 100px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 3rem;
+}
+
+.status-buttons button .icon-checkmark {
+  color: green;
+}
+
+.status-buttons button .icon-circle {
+  color: yellow;
+}
+
+.status-buttons button .icon-cross {
+  color: red;
+}
+
+.deck-summary {
+  width: 60rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.deck-summary {
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deck-summary h1,
+.deck-summary p,
+.deck-summary .summary-chart,
+.deck-summary button {
+  animation: fadeIn 1s forwards;
+  opacity: 0;
+  transform: translateY(-25px);
+}
+
+.deck-stats p {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.deck-detail-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.start-learning-button button {
+  background-color: #4caf50;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.plus-icon {
+  color: red;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
+
+.deck-detail-button button {
+  background-color: #4caf50;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.deck-detail-button button:hover {
+  background-color: #45a049;
+}
+
+.add-card-button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.add-card-button button {
+  background-color: #ff9843;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.add-card-button button:hover {
+  background-color: #e36414;
+}
+
+.back-to-home-button button {
+  background-color: #2dc6f2;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.back-to-home-button button:hover {
+  background-color: #3887be;
 }
