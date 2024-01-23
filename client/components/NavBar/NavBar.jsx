@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import searchBar from './searchBar.jsx';
 
 const NavBar = () => {
   return (
@@ -19,7 +20,8 @@ const NavBar = () => {
       </div>
 
       <div>
-        <input className='searchBar' placeholder='SEARCH'></input>
+        <searchBar/>
+        {/* <input className='searchBar' placeholder='SEARCH'></input> */}
       </div>
     </nav>
   );
