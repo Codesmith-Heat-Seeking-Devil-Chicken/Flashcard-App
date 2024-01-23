@@ -34,7 +34,8 @@
     "react-router-dom": "^6.21.3",
     "sass": "^1.70.0",
     "sass-loader": "^14.0.0",
-    "style-loader": "^3.3.4"
+    "style-loader": "^3.3.4",
+    "supertest": "^6.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
