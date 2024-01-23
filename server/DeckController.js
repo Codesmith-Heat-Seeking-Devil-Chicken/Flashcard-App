@@ -35,7 +35,22 @@ router.post('/', (req, res, next) => {
       });
     });
 });
+router.patch('/deck/:deckId', (req, res) => {
+  const update = req.body
 
+  if(ObjectId.isValid(req.params.id)) {
+    Deck
+      .updateOne({_id: ObjectId(req.params.id)}, {$set: update})
+      .then(result => {
+        res.status(500).json(result)
+      })
+      .catch(err => {
+        res.status(500).json.apply({error: 'Could not update the document'})
+      })
+  } else {
+      res.status(500).json({error: 'Not a valid doc id'})
+  }
+})
 //delete a deck from the database
 //DELETE '/api/deck'
 //deck info will be in req param deckName?
