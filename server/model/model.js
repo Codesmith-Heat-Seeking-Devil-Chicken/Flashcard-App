@@ -16,42 +16,4 @@ const deckSchema = new Schema({
   cards: [cardSchema], // array of cards, each card is an obj
 });
 
-// const deckSchema = newSchema({
-//   _id: ObjectId(),
-//   deckName: String,
-//   cards: [
-//     {
-//       _id: ObjectId(),
-//       front: String,
-//       back: String,
-//       status: String,
-//     },
-//   ],
-// });
-
-// const tempCar = await Car.findOneAndUpdate(
-//   {
-//     make: req.params.make,
-//   },
-//   { $set: { "models.$[e1].reviews.$[e2]": result.value } },
-//   {
-//     arrayFilters: [
-//       { "e1.name": req.params.model },
-//       { "e2._id": req.params._id },
-//     ],
-//   }
-// );
-
-// const tempDeck = await Deck.findOneAndUpdate(
-//   {
-//     _id: cardId,
-//   },
-//   { $set: { "cards.$[e1]": status } },
-//   {
-//     arrayFilters: [
-//       { "e1._id": cardId },
-//     ]
-//   }
-// )
-
 module.exports = mongoose.model('Deck', deckSchema, 'Deck');
