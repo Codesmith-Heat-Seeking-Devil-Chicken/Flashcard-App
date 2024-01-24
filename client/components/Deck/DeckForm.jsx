@@ -20,7 +20,7 @@ const DeckForm = () => {
       deckId: currentDeckID,
       deckName: decksName,
     };
-    console.log(newDeck);
+
     const newDeckString = JSON.stringify(newDeck);
 
     await fetch(`http://localhost:3000/deck`, {
