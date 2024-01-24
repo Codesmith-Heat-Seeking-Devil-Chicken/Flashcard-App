@@ -28,13 +28,13 @@ const DeckContainer = () => {
 
     const body = JSON.stringify({ deckName: newDeck, cards: [] });
 
-    const response = await fetch("http://localhost:3000", {
+    const response = await fetch("http://localhost:3000/deck", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body,
     });
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       await getDecks();
       setNewDeck("");
     }

@@ -23,7 +23,7 @@ export const currentDeckSlice = createSlice({
       );
     },
     getProgress: (state, action) => {
-      state.deckprogress = action.payload;
+      state.deckprogress = [action.payload];
     },
   },
 });
@@ -31,4 +31,4 @@ export const currentDeckSlice = createSlice({
 export const { selectDeck, loadCards, addCard, deleteCard, getProgress } =
   currentDeckSlice.actions;
 
-export default currentDeckSlice.reducers;
+export default currentDeckSlice.reducer;
