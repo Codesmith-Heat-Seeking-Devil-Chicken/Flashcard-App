@@ -36,44 +36,25 @@ router.post('/', (req, res, next) => {
     });
 });
 router.patch('/deck/:deckId', (req, res) => {
-  const update = req.body
+  const update = req.body;
 
-  if(ObjectId.isValid(req.params.id)) {
-    Deck
-      .updateOne({_id: ObjectId(req.params.id)}, {$set: update})
-      .then(result => {
-        res.status(500).json(result)
+  if (ObjectId.isValid(req.params.id)) {
+    Deck.updateOne({ _id: ObjectId(req.params.id) }, { $set: update })
+      .then((result) => {
+        res.status(500).json(result);
       })
-      .catch(err => {
-        res.status(500).json.apply({error: 'Could not update the document'})
-      })
+      .catch((err) => {
+        res.status(500).json.apply({ error: 'Could not update the document' });
+      });
   } else {
-      res.status(500).json({error: 'Not a valid doc id'})
+    res.status(500).json({ error: 'Not a valid doc id' });
   }
-})
+});
 //delete a deck from the database
 //DELETE '/api/deck'
 //deck info will be in req param deckName?
 //send success status code in router in server.js
 router.delete('/deck/:deckId', async (req, res, next) => {
-  // try {
-  //     const data = await Deck.deleteOne({deckName: req.params.deckName});
-  //     if (data.deletedCount === 0){
-  //         return next({
-  //             log: 'Express error handler caught in DeckController.delete',
-  //             status: 400,
-  //             message: {error: 'Deck not found'},
-  //         });
-  //     }
-  //     res.locals.message = 'Deleted ' + data.deletedCount + ' deck';
-  //     return res.status(200).json(res.locals.message);
-  // } catch (error) {
-  //     return next({
-  //         log: 'Express error handler caught in DeckController.delete',
-  //         status: 400,
-  //         message: { error: `${error}` },
-  //     });
-  // }
   const deckId = req.params.deckId;
   await Deck.findByIdAndDelete(deckId)
     .then((data) => {
