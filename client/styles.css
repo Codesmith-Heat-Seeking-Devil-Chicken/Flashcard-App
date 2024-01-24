@@ -343,32 +343,33 @@ a {
   margin-right: 40rem;
 }
 
-.CardForm {
+.DeckForm {
   display: flex;
   justify-content: center;
   margin-top: 14rem;
 }
 
-.formContent {
+.deckFormContent {
   display: flex;
   flex-direction: column;
 }
 
-.formContent input {
+.deckFormContent input {
   width: 40rem;
   height: 3rem;
   border: 1px solid lightgrey;
   border-radius: 0.4rem;
   padding-left: 1rem;
   margin-bottom: 2rem;
+  font-size: 1.5rem;
 }
 
-.formContent div {
+.deckFormContent div {
   display: flex;
   justify-content: space-between;
 }
 
-.formContent button {
+.deckFormContent button {
   width: 7rem;
   height: 2.5rem;
   border: none;
@@ -376,9 +377,10 @@ a {
   background-color: #2dc6f2;
   color: white;
   cursor: pointer;
+  font-size: 1rem;
 }
 
-.formContent button:hover {
+.deckFormContent button:hover {
   background-color: #3887be;
 }
 
@@ -537,5 +539,44 @@ a {
 }
 
 .back-to-home-button button:hover {
+  background-color: #3887be;
+}
+
+.CardForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 14rem;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.formContent input {
+  width: 40rem;
+  height: 3rem;
+  border: 1px solid lightgrey;
+  border-radius: 0.4rem;
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.formContent div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formContent button {
+  width: 7rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 0.6rem;
+  background-color: #2dc6f2;
+  color: white;
+  cursor: pointer;
+}
+
+.formContent button:hover {
   background-color: #3887be;
 }
