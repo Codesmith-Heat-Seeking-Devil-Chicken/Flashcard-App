@@ -7,7 +7,6 @@ deckController.getDeck = (req, res, next) => {
   if (req.body.deckId) {
     Deck.findById(req.body.deckId)
       .then((result) => {
-        console.log("deck find result: ", result);
         res.locals.result = result;
         return next();
       })
@@ -17,7 +16,6 @@ deckController.getDeck = (req, res, next) => {
   } else {
     Deck.find()
       .then((result) => {
-        console.log("Deck find result", result);
         res.locals.result = result;
         return next();
       })
