@@ -20,11 +20,12 @@ const CardForm = () => {
     const newCard = {
       front: cardFront,
       back: cardBack,
+      deckId: params.deckId,
     };
 
     const newCardString = JSON.stringify(newCard);
 
-    await fetch(`http://localhost:3000/deck/${currentDeckID}/card`, {
+    await fetch(`http://localhost:3000/card`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: newCardString,

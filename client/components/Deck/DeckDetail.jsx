@@ -122,9 +122,11 @@ const DeckDetail = () => {
         <div className="add-card-button">
           <button onClick={handleAddCard}>+ Add Cards!</button>
         </div>
-        <div className="start-learning-button">
-          <button onClick={handleStartLearning}>Start Learning!</button>
-        </div>
+        {deckProgressInfo.total > 0 && (
+          <div className="start-learning-button">
+            <button onClick={handleStartLearning}>Start Learning!</button>
+          </div>
+        )}
       </div>
     </div>
   );

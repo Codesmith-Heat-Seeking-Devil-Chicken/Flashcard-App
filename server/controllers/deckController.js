@@ -1,9 +1,9 @@
 const deckController = {};
-const mongoose = require('mongoose');
-const Deck = require('../model/model');
+const mongoose = require("mongoose");
+const Deck = require("../model/model");
 
 deckController.getDeck = (req, res, next) => {
-  // get request (optionally with deckId in req.body)
+  //get request (optionally with deckId in req.body)
   if (req.body.deckId) {
     Deck.findById(req.body.deckId)
       .then((result) => {
@@ -34,17 +34,17 @@ deckController.getSummary = async (req, res, next) => {
         $match: { _id: deckId },
       },
       {
-        $unwind: '$cards',
+        $unwind: "$cards",
       },
       {
         $group: {
-          _id: '$cards.status',
+          _id: "$cards.status",
           count: { $sum: 1 },
         },
       },
       {
         $project: {
-          status: '$_id',
+          status: "$_id",
           count: 1,
           _id: 0,
         },
@@ -64,9 +64,7 @@ deckController.getSummary = async (req, res, next) => {
 };
 
 deckController.updateProgress = async (req, res, next) => {
-  // post request with deckId, cardId, status
   let { deckId, cardId, status } = req.body;
-  cardId = new mongoose.Types.ObjectId(cardId);
 
   const deck = await Deck.findById(deckId);
   const card = deck.cards.id(cardId);
@@ -81,7 +79,6 @@ deckController.addDeck = (req, res, next) => {
   const { deckName, cards } = req.body;
   Deck.create({ deckName, cards })
     .then((result) => {
-      console.log('add result', result);
       res.locals.newDeck = result;
       return next();
     })
