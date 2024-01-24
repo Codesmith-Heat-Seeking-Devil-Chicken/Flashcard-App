@@ -1,26 +1,36 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
+import { getProgress } from "../../redux/currentDeckSlice";
 
 const DeckDetail = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const deckProgress = useSelector((state) => state.deckProgress);
+  const deckProgress = useSelector((state) => state.currentDeck.deckprogress);
 
-  // TODO: Update with fetched result
-  //   useEffect(() => {
-  //     dispatch(fetchDeckProgress(params.deckId));
-  //   }, []);
+  useEffect(() => {
+    const fetchDeckProgress = async () => {
+      try {
+        const body = JSON.stringify({ deckId: params.deckId });
 
-  const data = [
-    ["Status", "Count"],
-    ["Good", 11],
-    ["Average", 5],
-    ["Poor", 6],
-  ];
+        const response = await fetch(`http://localhost:3000/deck/summary`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+        });
+
+        if (response.status === 201) {
+          const content = await response.json();
+          dispatch(getProgress(content));
+        }
+      } catch (error) {
+        console.error("Error fetching watch list:", error);
+      }
+    };
+    fetchDeckProgress();
+  }, []);
 
   const options = {
     titleTextStyle: {
@@ -43,14 +53,50 @@ const DeckDetail = () => {
     navigate(`/`);
   };
 
+  const calculateTotal = (progress) => {
+    let total = 0;
+    for (const key in progress) {
+      if (progress.hasOwnProperty(key)) {
+        total += progress[key];
+      }
+    }
+    return total;
+  };
+
+  const deckProgressInfo = deckProgress[0]
+    ? {
+        total: calculateTotal(deckProgress[0]),
+        good: deckProgress[0].good || 0,
+        average: deckProgress[0].average || 0,
+        poor: deckProgress[0].poor || 0,
+      }
+    : {
+        total: 0,
+        good: 0,
+        average: 0,
+        poor: 0,
+      };
+
+  const data = [
+    ["Status", "Count"],
+    ["Good", deckProgressInfo.good],
+    ["Average", deckProgressInfo.average],
+    ["Poor", deckProgressInfo.poor],
+  ];
+
   return (
     <div className="deck-summary">
       <h1> Current Learning Progress</h1>
       <div className="deck-stats">
         <p>
-          There are x cards in this deck <br></br>
-          You have a good understanding of A cards <br></br>B + C need more
-          review
+          There are <span>{deckProgressInfo.total}</span> cards in this deck{" "}
+          <br />
+          You have a good understanding of <span>
+            {deckProgressInfo.good}
+          </span>{" "}
+          cards <br />
+          <span>{deckProgressInfo.average + deckProgressInfo.poor}</span> need
+          more review
         </p>
       </div>
       <div className="summary-chart">

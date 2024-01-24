@@ -11,13 +11,22 @@ export const getDecks = async () => {
   }
 };
 
-export const getDeckProgress = async (deckId) => {
-  // TODO: Update the address
-  // const response = await fetch("http://localhost:3000");
-  // if (response.status === 200) {
-  //   const body = await response.json();
-  //   store.dispatch(getProgress(body));
-  // }
+export const getDeckProgress = (deckId) => {
+  return async (dispatch) => {
+    try {
+      const body = JSON.stringify({ deckId: deckId });
+
+      const response = await fetch(`http://localhost:3000/deck/summary`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      });
+      const content = await response.json();
+      store.dispatch(getProgress(content));
+    } catch (error) {
+      console.error("Error fetching watch list:", error);
+    }
+  };
 };
 
 export const updateCardStatus = (updateInfo) => {
