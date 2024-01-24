@@ -53,6 +53,10 @@ const DeckDetail = () => {
     navigate(`/`);
   };
 
+  const handleEditDeck = () => {
+    navigate(`/deck/${params.deckId}/editDeck`);
+  };
+
   const calculateTotal = (progress) => {
     let total = 0;
     for (const key in progress) {
@@ -111,6 +115,9 @@ const DeckDetail = () => {
       <div className="deck-detail-button">
         <div className="back-to-home-button">
           <button onClick={handleBackToHome}>Back</button>
+        </div>
+        <div className="deck-edit">
+          <button onClick={handleEditDeck}>Edit Deck</button>
         </div>
         <div className="add-card-button">
           <button onClick={handleAddCard}>+ Add Cards!</button>
