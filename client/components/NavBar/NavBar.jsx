@@ -1,13 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import SearchBar from "./searchBar.jsx";
 
 const NavBar = () => {
   return (
-    <nav className='NavBar'>
-      <div className='menuDiv'>
-        <ul className='menu'>
+    <nav className="NavBar">
+      <div className="menuDiv">
+        <ul className="menu">
           <li>
-            <Link className='logo' to='/'>
+            <Link className="logo" to="/">
               coolcards
             </Link>
           </li>
@@ -17,9 +18,8 @@ const NavBar = () => {
           <li>LOGIN</li>
         </ul>
       </div>
-
       <div>
-        <input className='searchBar' placeholder='SEARCH'></input>
+        <SearchBar />
       </div>
     </nav>
   );

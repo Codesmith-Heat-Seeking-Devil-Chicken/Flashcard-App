@@ -4,6 +4,7 @@ export const decksSlice = createSlice({
   name: "decks",
   initialState: {
     decks: [],
+    searchDecks: [],
   },
   reducers: {
     loadDecks: (state, action) => {
@@ -17,9 +18,21 @@ export const decksSlice = createSlice({
         (deck, index) => index !== action.payload
       );
     },
+    resetSearchDeck: (state, action) => {
+      state.searchDecks = [];
+    },
+    updateSearchDeck: (state, action) => {
+      state.searchDecks = action.payload;
+    },
   },
 });
 
-export const { loadDecks, addDeck, deleteDeck } = decksSlice.actions;
+export const {
+  loadDecks,
+  addDeck,
+  deleteDeck,
+  resetSearchDeck,
+  updateSearchDeck,
+} = decksSlice.actions;
 
 export default decksSlice.reducer;
