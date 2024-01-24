@@ -9,6 +9,16 @@ router.get('/', deckController.getDeck, (req, res) => {
 });
 
 // tested.
+router.post('/summary', deckController.getSummary, (req, res) => {
+  return res.status(201).json(res.locals.deckSummary);
+});
+
+// tested.
+router.post('/updateProgress', deckController.updateProgress, (req, res) => {
+  return res.status(201).json('Updated card progress');
+});
+
+// tested.
 router.post('/', deckController.addDeck, (req, res) => {
   console.log('add deck router');
   return res.status(201).json(res.locals.newDeck);
