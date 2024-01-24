@@ -446,9 +446,22 @@ a {
   transform: translateY(-25px);
 }
 
+.deck-summary h1 {
+  font-family: "Verdana", sans-serif;
+  color: #007bff;
+  font-size: 2.5rem;
+}
+
 .deck-stats p {
-  font-size: 1.5rem;
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.deck-stats span {
+  color: #ff9843;
 }
 
 .deck-detail-button {
