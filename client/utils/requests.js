@@ -3,7 +3,7 @@ import { loadDecks } from "../redux/decksSlice";
 import { getProgress, deleteCard } from "../redux/currentDeckSlice";
 
 export const getDecks = async () => {
-  const response = await fetch("http://localhost:3000");
+  const response = await fetch("http://localhost:3000/deck");
 
   if (response.status === 200) {
     const body = await response.json();
