@@ -20,6 +20,16 @@ const Deck = ({ deck, index }) => {
     if (response.status === 200) getDecks();
   };
 
+  //update/edit deck
+  const handleEdit = async () => {
+    const response = await fetch('http://localhost:3000/deck/${deck._id}', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json'},
+    });
+    //invoke getDecks to refresh
+    if (response.status === 200) getDecks();
+  };
+
   const colorsArray = [
     '#00A7ED',
     '#8361F4',
@@ -42,6 +52,7 @@ const Deck = ({ deck, index }) => {
       </div>
 
       <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleEdit}>Edit</button>
     </div>
   );
 };
