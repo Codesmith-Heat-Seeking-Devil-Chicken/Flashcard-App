@@ -20,6 +20,24 @@ const Deck = ({ deck, index }) => {
     if (response.status === 200) getDecks();
   };
 
+//   const handleEdit = async () => {
+//     const response = await fetch(`http://localhost:3000/deck`, {
+//       method: 'PATCH',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({deckName: ''}),
+//     })
+//     // .then(function (response) {
+//     //   return response.json();
+//     // })
+//     // .then(function(data) {
+//     //   console.log(data);
+//     // })
+
+//     // invoke getDecks
+//  if (response.status === 203) await getDecks();
+
+//   };
+
   const colorsArray = [
     '#00A7ED',
     '#8361F4',
