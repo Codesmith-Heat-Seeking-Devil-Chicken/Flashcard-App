@@ -5,6 +5,7 @@ export const currentDeckSlice = createSlice({
   initialState: {
     id: "",
     cards: [],
+    deckprogress: [],
   },
   reducers: {
     selectDeck: (state, action) => {
@@ -21,10 +22,13 @@ export const currentDeckSlice = createSlice({
         (card, index) => index !== action.payload
       );
     },
+    getProgress: (state, action) => {
+      state.deckprogress = action.payload;
+    },
   },
 });
 
-export const { selectDeck, loadCards, addCard, deleteCard } =
+export const { selectDeck, loadCards, addCard, deleteCard, getProgress } =
   currentDeckSlice.actions;
 
 export default currentDeckSlice.reducers;
