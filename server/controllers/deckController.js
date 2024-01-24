@@ -7,7 +7,6 @@ deckController.getDeck = (req, res, next) => {
   if (req.body.deckId) {
     Deck.findById(req.body.deckId)
       .then((result) => {
-        // console.log('deck find result: ', result);
         res.locals.result = result;
         return next();
       })
@@ -79,7 +78,6 @@ deckController.updateProgress = async (req, res, next) => {
 
 deckController.addDeck = (req, res, next) => {
   // post request with deckName, cards in req.body (array of objects)
-  console.log('request body: ', req.body);
   const { deckName, cards } = req.body;
   Deck.create({ deckName, cards })
     .then((result) => {
@@ -97,7 +95,6 @@ deckController.deleteDeck = (req, res, next) => {
   const { deckId } = req.body;
   Deck.findByIdAndDelete(deckId)
     .then((result) => {
-      console.log('delete result', result);
       return next();
     })
     .catch((err) => {
@@ -108,18 +105,14 @@ deckController.deleteDeck = (req, res, next) => {
 deckController.editDeck = (req, res, next) => {
   // patch request with deckId, deckName in req.body
   // Dan's code here!!!!
-  console.log('editing deck.');
-  console.log('request body.', req.body);
   const { deckId, deckName } = req.body;
 
   Deck.updateOne({ _id: deckId }, { deckName: deckName })
     .then((result) => {
-      console.log('result of update', result);
       res.locals.updated = result;
       return next();
     })
     .catch((err) => {
-      console.log('error error error');
       return next(err);
     });
 };
