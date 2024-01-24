@@ -1,21 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import SearchBar from './searchBar.jsx';
-import ListPage from './listPage.jsx';
-import { getDecks } from '../../utils/requests.js';
-import { loadDecks } from '../../redux/decksSlice.js';
+import React from "react";
+import { Link } from "react-router-dom";
+import SearchBar from "./searchBar.jsx";
 
 const NavBar = () => {
-  const [results, setResults] = useState([]);
-console.log(results);
   return (
-    <nav className='NavBar'>
-      <div className='menuDiv'>
-        <ul className='menu'>
+    <nav className="NavBar">
+      <div className="menuDiv">
+        <ul className="menu">
           <li>
-            <Link className='logo' to='/'>
+            <Link className="logo" to="/">
               coolcards
             </Link>
           </li>
@@ -26,12 +19,7 @@ console.log(results);
         </ul>
       </div>
       <div>
-        <SearchBar setResults={setResults}/>
-        <ListPage results={results}/>
-        {/* <input className='searchBar' 
-        placeholder='SEARCH' 
-        onChange={handleChange}
-        ></input> */}
+        <SearchBar />
       </div>
     </nav>
   );
