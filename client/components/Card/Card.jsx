@@ -48,6 +48,10 @@ const Card = () => {
       cardId: cards[index]._id,
       status: selectStatus,
     });
+    if (!hasCards || index < cards.length - 1) {
+      setIndex(index + 1);
+      setIsFront(true);
+    }
   };
 
   return (
@@ -84,6 +88,10 @@ const Card = () => {
             </div>
             <CardControls
               cardInfo={{ deckId: currentDeckID, cardId: cards[index]._id }}
+              index={index}
+              setIndex={setIndex}
+              cards={cards}
+              setIsFront={setIsFront}
             />
           </div>
           <div className="next-button">

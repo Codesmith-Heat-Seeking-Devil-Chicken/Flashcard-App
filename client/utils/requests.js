@@ -29,26 +29,37 @@ export const getDeckProgress = (deckId) => {
   };
 };
 
-export const updateCardStatus = (updateInfo) => {
-  // TODO: Update the address
-  // const response = await fetch("http://localhost:3000");
-  // if (response.status === 200) {
-  //   const body = await response.json();
-  //   store.dispatch(getProgress(body));
-  // }
+export const updateCardStatus = async (updateInfo) => {
+  const body = JSON.stringify(updateInfo);
+  const response = await fetch("http://localhost:3000/deck/updateProgress", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+  });
+  if (response.status === 201) {
+    const result = await response.json();
+    console.log("Here checking body: ", result);
+  }
 };
 
-export const handleCardDelete = async (deleteInfo) => {
+export const handleCardDelete = async (
+  deleteInfo,
+  setIndex,
+  index,
+  cards,
+  setIsFront
+) => {
   const body = JSON.stringify(deleteInfo);
 
-  // TODO: double check the address
-  // await fetch(`http://localhost:3000/deck/`, {
-  //   method: "DELETE",
-  //   headers: { "Content-Type": "application/json" },
-  //   body,
-  // });
-
-  // if (index === cards.length - 1) setIndex(Math.max(index - 1, 0));
-
-  // await getDecks();
+  const response = await fetch("http://localhost:3000/card", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body,
+  });
+  if (response.status === 202) {
+    const result = await response.json();
+    if (index === cards.length - 1) setIndex(Math.max(index - 1, 0));
+    setIsFront(true);
+  }
+  await getDecks();
 };
