@@ -79,7 +79,6 @@ deckController.addDeck = (req, res, next) => {
   const { deckName, cards } = req.body;
   Deck.create({ deckName, cards })
     .then((result) => {
-      console.log("add result", result);
       res.locals.newDeck = result;
       return next();
     })
