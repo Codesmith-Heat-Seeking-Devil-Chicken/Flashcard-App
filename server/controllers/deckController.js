@@ -1,6 +1,6 @@
 const deckController = {};
-const mongoose = require("mongoose");
-const Deck = require("../model/model");
+const mongoose = require('mongoose');
+const Deck = require('../model/model');
 
 deckController.getDeck = (req, res, next) => {
   // get request (optionally with deckId in req.body)
@@ -34,17 +34,17 @@ deckController.getSummary = async (req, res, next) => {
         $match: { _id: deckId },
       },
       {
-        $unwind: "$cards",
+        $unwind: '$cards',
       },
       {
         $group: {
-          _id: "$cards.status",
+          _id: '$cards.status',
           count: { $sum: 1 },
         },
       },
       {
         $project: {
-          status: "$_id",
+          status: '$_id',
           count: 1,
           _id: 0,
         },
@@ -63,13 +63,25 @@ deckController.getSummary = async (req, res, next) => {
   }
 };
 
+deckController.updateProgress = async (req, res, next) => {
+  // post request with deckId, cardId, status
+  let { deckId, cardId, status } = req.body;
+  cardId = new mongoose.Types.ObjectId(cardId);
+
+  const deck = await Deck.findById(deckId);
+  const card = deck.cards.id(cardId);
+  card.status = status;
+  await deck.save();
+
+  return next();
+};
+
 deckController.addDeck = (req, res, next) => {
   // post request with deckName, cards in req.body (array of objects)
-  console.log("request body: ", req.body);
   const { deckName, cards } = req.body;
   Deck.create({ deckName, cards })
     .then((result) => {
-      console.log("add result", result);
+      console.log('add result', result);
       res.locals.newDeck = result;
       return next();
     })
@@ -83,7 +95,6 @@ deckController.deleteDeck = (req, res, next) => {
   const { deckId } = req.body;
   Deck.findByIdAndDelete(deckId)
     .then((result) => {
-      console.log("delete result", result);
       return next();
     })
     .catch((err) => {
@@ -94,18 +105,14 @@ deckController.deleteDeck = (req, res, next) => {
 deckController.editDeck = (req, res, next) => {
   // patch request with deckId, deckName in req.body
   // Dan's code here!!!!
-  console.log("editing deck.");
-  console.log("request body.", req.body);
   const { deckId, deckName } = req.body;
 
   Deck.updateOne({ _id: deckId }, { deckName: deckName })
     .then((result) => {
-      console.log("result of update", result);
       res.locals.updated = result;
       return next();
     })
     .catch((err) => {
-      console.log("error error error");
       return next(err);
     });
 };

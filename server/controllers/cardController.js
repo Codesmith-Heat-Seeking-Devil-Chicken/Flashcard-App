@@ -4,11 +4,9 @@ const Deck = require("../model/model");
 cardController.getCard = (req, res, next) => {
   // get request with deckId in req.body (show card)
   const deckId = req.body.deckId;
-  console.log("deckId", deckId);
 
   Deck.findById(deckId)
     .then((result) => {
-      console.log("returned deck: ", result);
       res.locals.result = result;
       return next();
     })
@@ -30,7 +28,6 @@ cardController.deleteCard = (req, res, next) => {
   const { deckId, cardId } = req.body;
   Deck.updateOne({ _id: deckId }, { $pull: { cards: { _id: cardId } } })
     .then((result) => {
-      console.log("delete result", result);
       return next();
     })
     .catch((err) => {
