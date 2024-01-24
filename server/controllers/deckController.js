@@ -3,18 +3,19 @@ const Deck = require('../model/model');
 
 deckController.getDeck = (req, res, next) => {
   // get request (optionally with deckId in req.body)
-  if (req.body.deckId) {
-    Deck.findById(req.body.deckId)
-      .then((result) => {
-        console.log('deck find result: ', result);
-        res.locals.result = result;
-        return next();
-      })
-      .catch((err) => {
-        return next(err);
-      });
-  } else {
-    Deck.find()
+  // if (req.body.deckId) {
+  //   Deck.findById(req.body.deckId)
+  //     .then((result) => {
+  //       // console.log('deck find result: ', result);
+  //       res.locals.result = result;
+  //       return next();
+  //     })
+  //     .catch((err) => {
+  //       return next(err);
+  //     });
+  // } else {
+    // test if this works still
+    Deck.find(req.body.deckId || '')
       .then((result) => {
         console.log('Deck find result', result);
         res.locals.result = result;
@@ -23,7 +24,7 @@ deckController.getDeck = (req, res, next) => {
       .catch((err) => {
         return next(err);
       });
-  }
+  // }
 };
 
 deckController.addDeck = (req, res, next) => {
