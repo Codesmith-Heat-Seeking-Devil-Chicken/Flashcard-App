@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import searchBar from './searchBar.jsx';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import SearchBar from './searchBar.jsx';
+import ListPage from './listPage.jsx';
+import { getDecks } from '../../utils/requests.js';
+import { loadDecks } from '../../redux/decksSlice.js';
 
 const NavBar = () => {
+  const [results, setResults] = useState([]);
+console.log(results);
   return (
     <nav className='NavBar'>
       <div className='menuDiv'>
@@ -18,10 +25,13 @@ const NavBar = () => {
           <li>LOGIN</li>
         </ul>
       </div>
-
       <div>
-        <searchBar/>
-        {/* <input className='searchBar' placeholder='SEARCH'></input> */}
+        <SearchBar setResults={setResults}/>
+        <ListPage results={results}/>
+        {/* <input className='searchBar' 
+        placeholder='SEARCH' 
+        onChange={handleChange}
+        ></input> */}
       </div>
     </nav>
   );
