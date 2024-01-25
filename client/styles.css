@@ -542,6 +542,20 @@ a {
   background-color: #3887be;
 }
 
+.deck-edit-button button {
+  background-color: #ac87c5;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.deck-edit-button button:hover {
+  background-color: #756ab6;
+}
+
 .CardForm {
   display: flex;
   justify-content: center;

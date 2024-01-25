@@ -116,7 +116,7 @@ const DeckDetail = () => {
         <div className="back-to-home-button">
           <button onClick={handleBackToHome}>Back</button>
         </div>
-        <div className="deck-edit">
+        <div className="deck-edit-button">
           <button onClick={handleEditDeck}>Edit Deck</button>
         </div>
         <div className="add-card-button">

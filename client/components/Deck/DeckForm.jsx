@@ -37,7 +37,7 @@ const DeckForm = () => {
   return (
     <div className="DeckForm">
       <div className="deckFormSection">
-        <h4>Please Add New Deck Content </h4>
+        <h2>Please Add New Deck Content </h2>
         <form class="deckFormContent" onSubmit={handleSubmit}>
           <label>
             <input
